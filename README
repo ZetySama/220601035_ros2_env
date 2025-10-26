@@ -1,0 +1,75 @@
+BYM412 ROBOTİK DERSİ - ÖDEV 2 RAPORU: Ball Chaser Robotu
+Bahadır Sandıkcı 220601035
+Proje Tanımı
+Bu proje, İstanbul Sağlık ve Teknoloji Üniversitesi BYM412 Robotik Dersi kapsamında, sıfırdan tasarlanmış diferansiyel tahrikli (diff drive) bir robotun Gazebo Classic (v11) ortamında ROS 2 Humble ile kontrolünü ve bilgisayarlı görü (computer vision) ile top takibi yapmasını amaçlamaktadır.
+
+
+Sistem Mimarisi ve Bileşenleri
+
+1. Robot Modeli (URDF/XACRO) 
+
+Robot modeli, aşağıdaki link zincirine ve fiziksel özelliklere sahiptir:
+Gövde: base_link (Ana şasi) 
+Tekerlekler: left_wheel_link ve right_wheel_link (Tahrikli) 
+Joint Tipi: continuous (Sürekli dönen) 
+Denge Tekeri: caster_link (Serbest teker) 
+Joint Tipi: fixed (Sabit) 
+Kamera: camera_link (Robotun önünde sabitlenmiş kamera sensörü)
+
+2. Kontrol ve Sensör Entegrasyonu
+Bu robot projesinde, diferansiyel tahrikli (diff drive) robotun kontrolü ve sensör entegrasyonu için ROS 2 ve Gazebo Classic'in (v11) standart mekanizmaları kullanılmıştır.
+
+Robotun ana hareketi, Gazebo ortamındaki libgazebo_ros_diff_drive.so eklentisi tarafından sağlanır. Bu eklenti, ROS 2'de yayınlanan /cmd_vel topic'inden (geometry_msgs/Twist mesajı) gelen hız komutlarını dinler ve bu komutları robotun tekerleklerine uygulayarak fiziksel hareketi simüle eder. Aynı zamanda, robotun hareketinden türetilen konum bilgisini (odometri) hesaplar ve bu veriyi /odom topic'inde yayınlar.
+
+Görüntü algılama yeteneği, robotun üzerine sabitlenmiş olan kamera sensörü ile sağlanır. Bu sanal kamera, Gazebo Classic'in libgazebo_ros_camera.so eklentisi aracılığıyla ROS 2 ortamına bağlanır. Eklenti, elde ettiği canlı görüntü akışını /camera/image_raw gibi belirlenmiş bir topic'te yayınlar.
+
+Son olarak, robotun sanal ortamdaki doğru temsilini sağlamak için robot_state_publisher ve joint_state_publisher düğümleri kullanılır. robot_state_publisher, URDF dosyasını okuyarak robotun parçalarının dönüşüm (TF) bilgisini yayınlarken, joint_state_publisher ise tekerleklerin dönüşü gibi eklem durumlarını yayınlayarak robot modelinin RViz'de canlanmasını ve doğru hareket etmesini sağlar.
+
+
+3. Ball Chaser Düğümü (Python) 
+
+Dil: Python
+
+Girdi Topic: /camera/camera_sensor/image_raw (Kameradan gelen görüntü) 
+
+Çıktı Topic: /cmd_vel (Hareket komutları) 
+
+
+Davranış: Topu bulmak için OpenCV kütüphanesini kullanır ve aşağıdaki kurallara göre hareket eder:
+
+Top görünmüyorsa: Durur (linear=0, angular=0).
+
+Top merkezde/yakındaysa: İleri hareket eder.
+
+Top sağda/soldaysa: Hedefi merkeze almak için döner.
+
+Çalıştırma Talimatları (Tek Launch Komutu)
+Proje, ödev gereksinimine uygun olarak tüm bileşenleri (Gazebo, robot spawn, state publisher'lar, RViz ve Ball Chaser) tek bir Python launch dosyası ile başlatır.
+
+
+Önkoşullar:
+
+Ubuntu 22.04 + ROS 2 Humble kurulumu tamamlanmış olmalıdır.
+
+ros2_ws klasörü ve paket bağımlılıkları (ros-humble-gazebo-ros-pkgs, ros-humble-xacro, python3-opencv vb.) yüklü olmalıdır.
+
+Komutlar
+Çalışma Alanına Git:
+
+Bash
+cd ~/ros2_ws
+Derle (Gerekliyse):
+
+Bash
+colcon build
+Ortamı Kaynak Göster:
+
+Bash
+source install/setup.bash
+Projeyi Başlat:
+
+Bash
+ros2 launch my_robot_bringup bringup.launch.py
+
+
+

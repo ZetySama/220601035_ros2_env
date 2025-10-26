@@ -1,0 +1,104 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /TF1
+        - /RobotModel1
+        - /Image1
+      Splitter Ratio: 0.5
+    Tree Height: 337
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Labels:
+        base_link: base_link
+        camera_link: camera_link
+        caster_link: caster_link
+        left_wheel_link: left_wheel_link
+        odom: odom
+        right_wheel_link: right_wheel_link
+      Frames:
+        All Enabled: true
+      Marker Scale: 0.3
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        odom:
+          base_link:
+            camera_link: {}
+            caster_link: {}
+            left_wheel_link: {}
+            right_wheel_link: {}
+      Update Interval: 0
+      Value: true
+    - Class: rviz_default_plugins/RobotModel
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability: Volatile
+        Value: /robot_description
+      Enabled: true
+      Name: RobotModel
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Image Topic:
+        Depth: 5
+        Durability: Volatile
+        Value: /camera/image_raw  # DOĞRU TOPIC ADI
+      Name: Image
+      Normalize Range: true
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: odom             # DOĞRU FRAME ADI
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Value: true
+  Version: 5.1.0
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 742
+  Hide Left Dock: false
+  Hide Right Dock: true
+  Image:
+    collapsed: false
+  Main Window State: 000000ff00000000fd00000001000000000000028a000002b8fc0200000007fb000000100044006900730070006c0061007900730100000041000002b80000016f00ffffffff0000000100000002000000200000000b0049006d00610067006500000000ff00000000ffffffff0000000000000001000001c2000002b8fc0200000003fb000000080054006f006f006c00730000000000ffffffff0000000000000000
+  Width: 1297
+  X: 63
+  Y: 27
