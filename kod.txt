@@ -1,0 +1,19 @@
+./ssf.sh
+
+sudo docker images | grep myrosapp
+
+sudo docker run --rm -d --name odev3_container myrosapp
+
+sudo docker exec -it odev3_container bash
+
+source /opt/ros/humble/setup.bash && source install/setup.bash             r2	
+
+
+
+ros2 topic list
+
+ros2 topic echo /processed_value
+
+ros2 service call /compute_command my_robot_interfaces/srv/ComputeCommand "input: 15.0"
+
+ros2 service call /compute_command my_robot_interfaces/srv/ComputeCommand "input: 5.0"
